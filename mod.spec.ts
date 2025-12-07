@@ -3,7 +3,6 @@ import { Subject } from "@xan/subject";
 import { Observer } from "@xan/observer";
 import { pipe } from "@xan/pipe";
 import { flatMap } from "./mod.ts";
-import { Observable } from "@xan/observable";
 import { map } from "@xan/observable-map";
 
 Deno.test("flatMap should flatten many inner", () => {
