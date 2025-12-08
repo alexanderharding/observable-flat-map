@@ -4,14 +4,15 @@ import { Observer } from "@xan/observer";
 import { pipe } from "@xan/pipe";
 import { flatMap } from "./mod.ts";
 import { map } from "@xan/observable-map";
+import { materialize, type Notification } from "@xan/observable-materialize";
 
-Deno.test("flatMap should flatten many inner", () => {
+Deno.test("flatMap should flatten many inners", () => {
   // Arrange
   const a = new Subject<void>();
   const b = new Subject<void>();
   const c = new Subject<void>();
   const d = new Subject<void>();
-  const notifications: Array<["N", string] | ["R"] | ["T", unknown]> = [];
+  const notifications: Array<Notification<string>> = [];
   const observableLookup = {
     a: pipe(
       a,
@@ -34,15 +35,12 @@ Deno.test("flatMap should flatten many inner", () => {
   const observable = pipe(
     source,
     flatMap((value) => observableLookup[value]),
+    materialize(),
   );
 
   // Act
   observable.subscribe(
-    new Observer({
-      next: (value) => notifications.push(["N", value]),
-      return: () => notifications.push(["R"]),
-      throw: (value) => notifications.push(["T", value]),
-    }),
+    new Observer((notification) => notifications.push(notification)),
   );
   source.next("a");
   a.next();
@@ -86,7 +84,7 @@ Deno.test("flatMap should flatten many inner, and inner throws", () => {
   const b = new Subject<void>();
   const c = new Subject<void>();
   const d = new Subject<void>();
-  const notifications: Array<["N", string] | ["R"] | ["T", unknown]> = [];
+  const notifications: Array<Notification<string>> = [];
   const observableLookup = {
     a: pipe(
       a,
@@ -109,15 +107,12 @@ Deno.test("flatMap should flatten many inner, and inner throws", () => {
   const observable = pipe(
     source,
     flatMap((value) => observableLookup[value]),
+    materialize(),
   );
 
   // Act
   observable.subscribe(
-    new Observer({
-      next: (value) => notifications.push(["N", value]),
-      return: () => notifications.push(["R"]),
-      throw: (value) => notifications.push(["T", value]),
-    }),
+    new Observer((notification) => notifications.push(notification)),
   );
   source.next("a");
   a.next();
@@ -159,7 +154,7 @@ Deno.test("flatMap should flatten many inner, and outer throws", () => {
   const b = new Subject<void>();
   const c = new Subject<void>();
   const d = new Subject<void>();
-  const notifications: Array<["N", string] | ["R"] | ["T", unknown]> = [];
+  const notifications: Array<Notification<string>> = [];
   const observableLookup = {
     a: pipe(
       a,
@@ -182,15 +177,12 @@ Deno.test("flatMap should flatten many inner, and outer throws", () => {
   const observable = pipe(
     source,
     flatMap((value) => observableLookup[value]),
+    materialize(),
   );
 
   // Act
   observable.subscribe(
-    new Observer({
-      next: (value) => notifications.push(["N", value]),
-      return: () => notifications.push(["R"]),
-      throw: (value) => notifications.push(["T", value]),
-    }),
+    new Observer((notification) => notifications.push(notification)),
   );
   source.next("a");
   a.next();
