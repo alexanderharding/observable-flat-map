@@ -4,7 +4,9 @@
     "jsr:@std/assert@^1.0.16": "1.0.16",
     "jsr:@std/internal@^1.0.12": "1.0.12",
     "jsr:@xan/observable-map@0.1": "0.1.0",
+    "jsr:@xan/observable-materialize@0.2": "0.2.0",
     "jsr:@xan/observable@0.1": "0.1.0",
+    "jsr:@xan/observable@0.2": "0.2.0",
     "jsr:@xan/observer@0.1": "0.1.0",
     "jsr:@xan/pipe@0.1": "0.1.0",
     "jsr:@xan/subject@0.1": "0.1.0"
@@ -25,10 +27,22 @@
         "jsr:@xan/observer"
       ]
     },
+    "@xan/observable@0.2.0": {
+      "integrity": "27b6e4450c48876e5a61f08a15941a49f94d0a9eecca05607eac7e630dbfee61",
+      "dependencies": [
+        "jsr:@xan/observer"
+      ]
+    },
     "@xan/observable-map@0.1.0": {
       "integrity": "5defb7efa2014f034f67725fc683360961dea8d6e047c1fe54dec86f7378a4be",
       "dependencies": [
-        "jsr:@xan/observable"
+        "jsr:@xan/observable@0.1"
+      ]
+    },
+    "@xan/observable-materialize@0.2.0": {
+      "integrity": "0e91e8e5d77c72207eb4fc973d505ca6f6a889d6dc5eecbe674134031835095b",
+      "dependencies": [
+        "jsr:@xan/observable@0.2"
       ]
     },
     "@xan/observer@0.1.0": {
@@ -40,7 +54,7 @@
     "@xan/subject@0.1.0": {
       "integrity": "da072adb804dff9cb5d66d9335259701cc2dee5282ffd1a7c74838e531095afc",
       "dependencies": [
-        "jsr:@xan/observable",
+        "jsr:@xan/observable@0.1",
         "jsr:@xan/observer"
       ]
     }
@@ -49,6 +63,7 @@
     "dependencies": [
       "jsr:@std/assert@^1.0.16",
       "jsr:@xan/observable-map@0.1",
+      "jsr:@xan/observable-materialize@0.2",
       "jsr:@xan/observable@0.1",
       "jsr:@xan/observer@0.1",
       "jsr:@xan/pipe@0.1",
